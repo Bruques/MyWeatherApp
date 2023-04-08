@@ -18,8 +18,8 @@ class HomeView: UIView {
     
     private lazy var headerStackView = self.makeHeaderStackView()
     private lazy var getLocationButton = self.makeGetLocationButton()
-    private lazy var searchBar = self.makeSearchBar()
-    private lazy var searchButton = self.makeSearchButton()
+    lazy var searchBar = self.makeSearchBar()
+    lazy var searchButton = self.makeSearchButton()
     
     init() {
         super.init(frame: .zero)
@@ -31,6 +31,8 @@ class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+// MARK: - Add subviews and setup constraints
 
 extension HomeView {
     private func addSubviews() {
@@ -55,6 +57,8 @@ extension HomeView {
         ])
     }
 }
+
+// MARK: - Make function
 
 extension HomeView {
     private func makeBackgroundImageView() -> UIImageView {

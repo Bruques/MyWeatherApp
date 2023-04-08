@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     
     private lazy var homeView: HomeView = {
         let homeView = HomeView()
+        homeView.searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
         return homeView
     }()
     
@@ -34,6 +35,9 @@ class HomeViewController: UIViewController {
         self.view = homeView
     }
 
-
+    @objc private func tapSearchButton() {
+        guard let cityName = homeView.searchBar.text else { return }
+        viewModel.getWeatherData(cityName: cityName)
+    }
 }
 
