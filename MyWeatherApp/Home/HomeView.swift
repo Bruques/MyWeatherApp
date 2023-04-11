@@ -20,6 +20,10 @@ class HomeView: UIView {
     private lazy var getLocationButton = self.makeGetLocationButton()
     lazy var searchBar = self.makeSearchBar()
     lazy var searchButton = self.makeSearchButton()
+    lazy var weatherInfoStackView = self.makeWeatherInfoStackView()
+    lazy var weatherIcon = self.makeWeatherIcon()
+    lazy var weatherTemp = self.makeWeatherTemp()
+    lazy var weatherCity = self.makeWeatherCity()
     
     init() {
         super.init(frame: .zero)
@@ -42,6 +46,11 @@ extension HomeView {
         headerStackView.addArrangedSubview(getLocationButton)
         headerStackView.addArrangedSubview(searchBar)
         headerStackView.addArrangedSubview(searchButton)
+        
+        addSubview(weatherInfoStackView)
+        weatherInfoStackView.addArrangedSubview(weatherIcon)
+        weatherInfoStackView.addArrangedSubview(weatherTemp)
+        weatherInfoStackView.addArrangedSubview(weatherCity)
     }
     
     private func setupConstraints() {
@@ -53,7 +62,12 @@ extension HomeView {
             
             headerStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            weatherInfoStackView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 8),
+            weatherInfoStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            weatherInfoStackView.heightAnchor.constraint(equalToConstant: 200),
+            weatherInfoStackView.widthAnchor.constraint(equalToConstant: 200)
         ])
     }
 }
@@ -79,7 +93,7 @@ extension HomeView {
     private func makeGetLocationButton() -> UIButton {
         let button = UIButton()
         let image = UIImage(named: "location_icon")
-        button.setImage(image, for: .normal)
+         button.setImage(image, for: .normal)
         return button
     }
     
@@ -98,5 +112,36 @@ extension HomeView {
         button.setImage(image, for: .normal)
         return button
     }
+    
+    private func makeWeatherInfoStackView() -> UIStackView {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 8
+        return stack
+    }
+    
+    private func makeWeatherIcon() -> UIImageView {
+        let image = UIImage(systemName: "cloud")
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }
+    
+    private func makeWeatherTemp() -> UILabel {
+        let label = UILabel()
+        label.text = "C"
+        label.font = .systemFont(ofSize: 60)
+        label.textAlignment = .center
+        return label
+    }
+    
+    private func makeWeatherCity() -> UILabel {
+        let label = UILabel()
+        label.text = "City name"
+        label.font = .systemFont(ofSize: 24)
+        label.textAlignment = .center
+        return label
+    }
 }
-
